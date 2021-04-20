@@ -1,0 +1,6 @@
+bin/
+obj/
+.devcontainer/
+.config/
+.gitignore
+README.md
