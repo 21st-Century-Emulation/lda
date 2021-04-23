@@ -17,8 +17,8 @@ Public Class ExecuteController
     
     <Route("/api/v1/execute")>
     <HttpPost()>
-    Public Async Function Execute(highByte As Byte, lowByte As Byte, <FromBody()> cpu As Cpu) As Task(Of Cpu)
-        Dim byteArray = New Byte() { lowByte, highByte }
+    Public Async Function Execute(operand1 As Byte, operand2 As Byte, <FromBody()> cpu As Cpu) As Task(Of Cpu)
+        Dim byteArray = New Byte() { operand1, operand2 }
         Dim address = BitConverter.ToUInt16(byteArray, 0)
         Console.WriteLine(address)
         Dim client = mClientFactory.CreateClient()
