@@ -20,9 +20,8 @@ Public Class ExecuteController
     Public Async Function Execute(operand1 As Byte, operand2 As Byte, <FromBody()> cpu As Cpu) As Task(Of Cpu)
         Dim byteArray = New Byte() { operand1, operand2 }
         Dim address = BitConverter.ToUInt16(byteArray, 0)
-        Console.WriteLine(address)
         Dim client = mClientFactory.CreateClient()
-        Dim result = await client.GetAsync($"{mReadMemoryUrl}?address={address}")
+        Dim result = await client.GetAsync($"{mReadMemoryUrl}?id={cpu.Id}&address={address}")
         cpu.State.A = Byte.Parse(await result.Content.ReadAsStringAsync())
         cpu.State.Cycles = cpu.State.Cycles + 13
         Return cpu
@@ -31,7 +30,7 @@ Public Class ExecuteController
 #if DEBUG
     <Route("/api/v1/readMemory")>
     <HttpGet()>
-    Public Function ReadMemory(address As UShort) As Byte
+    Public Function ReadMemory(id as String, address As UShort) As Byte
         return 10
     End Function
 #End If
