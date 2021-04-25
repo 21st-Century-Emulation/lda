@@ -14,4 +14,6 @@ Public class CpuState
     Public Property ProgramCounter as UShort
 
     Public Property Cycles as Ulong
+
+    Public Property InterruptsEnabled as Boolean
 End Class
